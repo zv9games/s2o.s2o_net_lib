@@ -1,0 +1,68 @@
+OUT_DIR = Some(C:\S2O\s2o_net_lib\target\debug\build\runas-ec06dbcd72996f76\out)
+OPT_LEVEL = Some(0)
+TARGET = Some(x86_64-pc-windows-msvc)
+cargo:rerun-if-env-changed=VCINSTALLDIR
+VCINSTALLDIR = None
+cargo:rerun-if-env-changed=VSTEL_MSBuildProjectFullPath
+VSTEL_MSBuildProjectFullPath = None
+cargo:rerun-if-env-changed=VSCMD_ARG_VCVARS_SPECTRE
+VSCMD_ARG_VCVARS_SPECTRE = None
+cargo:rerun-if-env-changed=WindowsSdkDir
+WindowsSdkDir = None
+cargo:rerun-if-env-changed=WindowsSDKVersion
+WindowsSDKVersion = None
+cargo:rerun-if-env-changed=LIB
+LIB = None
+PATH = Some(C:\S2O\s2o_net_lib\target\debug\deps;C:\S2O\s2o_net_lib\target\debug;C:\Users\grego\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Users\grego\.cargo\bin;C:\Users\grego\AppData\Local\Microsoft\WindowsApps;C:\Users\grego\.dotnet\tools)
+cargo:rerun-if-env-changed=INCLUDE
+INCLUDE = None
+HOST = Some(x86_64-pc-windows-msvc)
+cargo:rerun-if-env-changed=CC_x86_64-pc-windows-msvc
+CC_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CC_x86_64_pc_windows_msvc
+CC_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CC
+HOST_CC = None
+cargo:rerun-if-env-changed=CC
+CC = None
+cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some(cmpxchg16b,fxsr,sse,sse2,sse3)
+DEBUG = Some(true)
+cargo:rerun-if-env-changed=CFLAGS_x86_64-pc-windows-msvc
+CFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=CFLAGS_x86_64_pc_windows_msvc
+CFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_CFLAGS
+HOST_CFLAGS = None
+cargo:rerun-if-env-changed=CFLAGS
+CFLAGS = None
+CARGO_ENCODED_RUSTFLAGS = Some()
+cargo:rerun-if-env-changed=CC_ENABLE_DEBUG_OUTPUT
+runas-windows.c
+runas-windows.c(12): warning C4133: '=': incompatible types - from 'unsigned short [6]' to 'LPCSTR'
+runas-windows.c(13): warning C4047: '=': 'LPCSTR' differs in levels of indirection from 'LPCTSTR *'
+runas-windows.c(14): warning C4047: '=': 'LPCSTR' differs in levels of indirection from 'LPCTSTR *'
+runas-windows.c(17): warning C4133: 'function': incompatible types - from 'SHELLEXECUTEINFO *' to 'SHELLEXECUTEINFOW *'
+runas-windows.c(18): warning C4245: 'return': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+runas-windows.c(24): warning C4245: 'return': conversion from 'int' to 'DWORD', signed/unsigned mismatch
+cargo:rerun-if-env-changed=AR_x86_64-pc-windows-msvc
+AR_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=AR_x86_64_pc_windows_msvc
+AR_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_AR
+HOST_AR = None
+cargo:rerun-if-env-changed=AR
+AR = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64-pc-windows-msvc
+ARFLAGS_x86_64-pc-windows-msvc = None
+cargo:rerun-if-env-changed=ARFLAGS_x86_64_pc_windows_msvc
+ARFLAGS_x86_64_pc_windows_msvc = None
+cargo:rerun-if-env-changed=HOST_ARFLAGS
+HOST_ARFLAGS = None
+cargo:rerun-if-env-changed=ARFLAGS
+ARFLAGS = None
+cargo:rustc-link-search=native=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\atlmfc\lib\x64
+cargo:rustc-link-lib=static=runas
+cargo:rustc-link-search=native=C:\S2O\s2o_net_lib\target\debug\build\runas-ec06dbcd72996f76\out
+cargo:rustc-link-lib=ole32

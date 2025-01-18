@@ -1,0 +1,12 @@
+C:\S2O\s2o_net_lib_1.1\target\debug\deps\libcolored-6efe35780a8452a1.rmeta: C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src/lib.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\color.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\control.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\error.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\style.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\customcolors.rs
+
+C:\S2O\s2o_net_lib_1.1\target\debug\deps\libcolored-6efe35780a8452a1.rlib: C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src/lib.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\color.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\control.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\error.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\style.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\customcolors.rs
+
+C:\S2O\s2o_net_lib_1.1\target\debug\deps\colored-6efe35780a8452a1.d: C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src/lib.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\color.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\control.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\error.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\style.rs C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\customcolors.rs
+
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src/lib.rs:
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\color.rs:
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\control.rs:
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\error.rs:
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\style.rs:
+C:\Users\grego\.cargo\registry\src\index.crates.io-6f17d22bba15001f\colored-2.2.0\src\customcolors.rs:

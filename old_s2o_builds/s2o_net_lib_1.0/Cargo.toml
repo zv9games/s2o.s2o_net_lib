@@ -1,0 +1,30 @@
+[package]
+name = "s2o_net_lib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+windows = { version = "0.58.0", features = [
+    "Win32_System_WindowsProgramming",
+    "Win32_System_LibraryLoader",
+    "Win32_UI_Shell",
+    "Win32_Foundation",
+    "Win32_System_Threading",
+    "Win32_Security",
+    "Win32_UI_WindowsAndMessaging"
+] }
+
+lazy_static = "1.4"
+tokio = {version = "1", features = ["full"] }
+log = "0.4"
+env_logger = "0.9"
+runas = "0.2"
+crossterm = "0.22"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+speedtest-rs = "0.1.1"
+reqwest = { version = "0.11", features = ["json"] }
+regex = "1.5.4"
+hex = "0.4"
+
