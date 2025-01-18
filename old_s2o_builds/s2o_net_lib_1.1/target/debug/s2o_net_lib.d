@@ -1,1 +1,0 @@
-C:\S2O\s2o_net_lib_1.1\target\debug\s2o_net_lib.exe: C:\S2O\s2o_net_lib_1.1\src\admin_menu.rs C:\S2O\s2o_net_lib_1.1\src\data_speed.rs C:\S2O\s2o_net_lib_1.1\src\main.rs C:\S2O\s2o_net_lib_1.1\src\menu.rs

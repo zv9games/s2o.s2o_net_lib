@@ -1,1 +1,0 @@
-C:\S2o\s2o_net_lib\target\debug\s20_net_lib.exe: C:\S2o\s2o_net_lib\src\ds_menu.rs C:\S2o\s2o_net_lib\src\initialization.rs C:\S2o\s2o_net_lib\src\main.rs C:\S2o\s2o_net_lib\src\menu.rs C:\S2o\s2o_net_lib\src\ns_menu.rs C:\S2o\s2o_net_lib\src\pc_menu.rs C:\S2o\s2o_net_lib\src\program_menu.rs C:\S2o\s2o_net_lib\src\security_menu.rs
