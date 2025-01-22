@@ -1,13 +1,15 @@
-C:\S2O\s2o_net_lib\target\debug\deps\s20_net_lib.exe: src/main.rs src\initialization.rs src\security_menu.rs src\program_menu.rs src\menu.rs src\ds_menu.rs src\ns_menu.rs src\pc_menu.rs src\packet_sniffer.rs
+C:\s2o\s2o_net_lib\target\debug\deps\s20_net_lib.exe: src/main.rs src\logging.rs src\initialization.rs src\app_state.rs src\menu_rendering.rs src\s_menu.rs src\p_menu.rs src\ns_menu.rs src\ds_menu.rs src\pc_menu.rs src\packet_sniffer.rs
 
-C:\S2O\s2o_net_lib\target\debug\deps\s20_net_lib.d: src/main.rs src\initialization.rs src\security_menu.rs src\program_menu.rs src\menu.rs src\ds_menu.rs src\ns_menu.rs src\pc_menu.rs src\packet_sniffer.rs
+C:\s2o\s2o_net_lib\target\debug\deps\s20_net_lib.d: src/main.rs src\logging.rs src\initialization.rs src\app_state.rs src\menu_rendering.rs src\s_menu.rs src\p_menu.rs src\ns_menu.rs src\ds_menu.rs src\pc_menu.rs src\packet_sniffer.rs
 
 src/main.rs:
+src\logging.rs:
 src\initialization.rs:
-src\security_menu.rs:
-src\program_menu.rs:
-src\menu.rs:
-src\ds_menu.rs:
+src\app_state.rs:
+src\menu_rendering.rs:
+src\s_menu.rs:
+src\p_menu.rs:
 src\ns_menu.rs:
+src\ds_menu.rs:
 src\pc_menu.rs:
 src\packet_sniffer.rs:
