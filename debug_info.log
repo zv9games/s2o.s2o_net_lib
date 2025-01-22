@@ -18,7 +18,10 @@
 18:49:16 [INFO] Starting native application for security menu.
 18:49:16 [INFO] Update method called for security menu.
 18:49:16 [INFO] Security menu rendered.
-VIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Users\grego\.cargo\bin;C:\Users\grego\AppData\Local\Microsoft\WindowsApps;C:\Users\grego\.dotnet\tools;C:\Program Files\Wireshark
+18:53:02 [INFO] Security menu running.
+18:53:02 [INFO] Initialization process completed successfully.
+18:53:02 [INFO] Application initialization completed successfully.
+\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Users\grego\.cargo\bin;C:\Users\grego\AppData\Local\Microsoft\WindowsApps;C:\Users\grego\.dotnet\tools;C:\Program Files\Wireshark
 DLL path set successfully.
 Initializing security menu...
 Checking for elevated privileges...
@@ -31,3 +34,5 @@ Menu state initialized with default settings.
 Starting native application for security menu.
 Update method called for security menu.
 Security menu rendered.
+Security menu running.
+Initialization process completed successfully.
