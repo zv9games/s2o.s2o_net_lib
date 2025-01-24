@@ -1,10 +1,10 @@
 use simplelog::*;
-use std::fs::File;
+use std::fs::{File, OpenOptions};
 use std::sync::{Arc, Mutex};
 use log::{LevelFilter, info, error};
 use std::sync::Once;
 use std::collections::HashSet;
-use std::io::{Write};
+use std::io::{Write, Error};
 
 static INIT_LOG: Once = Once::new();
 
@@ -16,7 +16,7 @@ pub struct LogBuffers {
     pub error_log_set: Arc<Mutex<HashSet<String>>>,
 }
 
-pub fn init_logging() -> Result<(), std::io::Error> {
+pub fn init_logging() -> Result<(), Error> {
     INIT_LOG.call_once(|| {
         if let Err(e) = File::create("debug_info.log") {
             error!("Failed to create info log file: {}", e);
@@ -27,8 +27,8 @@ pub fn init_logging() -> Result<(), std::io::Error> {
             return;
         }
 
-        let log_file_info = File::create("debug_info.log").unwrap();
-        let log_file_error = File::create("debug_error.log").unwrap();
+        let log_file_info = OpenOptions::new().write(true).create(true).append(true).open("debug_info.log").unwrap();
+        let log_file_error = OpenOptions::new().write(true).create(true).append(true).open("debug_error.log").unwrap();
 
         if let Err(e) = CombinedLogger::init(vec![
             WriteLogger::new(LevelFilter::Info, Config::default(), log_file_info),
@@ -57,6 +57,9 @@ pub fn log_info(log_buffers: &LogBuffers, message: &str) {
         std::process::exit(1);
     });
     buffer.push(message.to_string());
+    if buffer.len() > 1000 {
+        buffer.clear();
+    }
     info!("{}", message);
 
     // Write to file directly to ensure log persistence
@@ -81,6 +84,9 @@ pub fn log_error(log_buffers: &LogBuffers, message: &str) {
         std::process::exit(1);
     });
     buffer.push(message.to_string());
+    if buffer.len() > 1000 {
+        buffer.clear();
+    }
     error!("{}", message);
 
     // Write to file directly to ensure log persistence

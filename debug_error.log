@@ -1,0 +1,3 @@
+16:24:50 [ERROR] Failed to start sniffer: FunctionLoadError(DlOpen { desc: "Failed to start packet sniffer." })
+16:24:50 [ERROR] Failed to start sniffer: FunctionLoadError(DlOpen { desc: "Failed to start packet sniffer." })
+Failed to start sniffer: FunctionLoadError(DlOpen { desc: "Failed to start packet sniffer." })

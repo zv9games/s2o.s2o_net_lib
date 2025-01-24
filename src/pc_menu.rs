@@ -1,4 +1,4 @@
-use crate::menu_rendering::{MenuItem, MenuState, render_menu};
+use crate::gui_engine::{MenuItem, MenuState, render_menu};
 use crate::app_state::{SharedAppState, AppState}; 
 use std::sync::{Arc, Mutex};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -8,12 +8,9 @@ use crate::logging::{LogBuffers, log_info, log_error};
 use once_cell::sync::Lazy;
 use crate::packet_sniffer;
 use std::collections::HashSet;
-use std::thread;
-use std::time::Duration;
+use crate::packet_capture::{CAPTURING, spawn_capture_thread, render_packets};
 
 // Shared static variables for capturing packets
-static CAPTURED_PACKETS: Lazy<Arc<Mutex<Vec<String>>>> = Lazy::new(|| Arc::new(Mutex::new(Vec::new())));
-static CAPTURING: Lazy<Arc<AtomicBool>> = Lazy::new(|| Arc::new(AtomicBool::new(false)));
 static PROCESS_LOGS: Lazy<Arc<Mutex<Vec<String>>>> = Lazy::new(|| Arc::new(Mutex::new(Vec::new()))); // Logs for process steps
 static SETUP_LOGGED: Lazy<Arc<AtomicBool>> = Lazy::new(|| Arc::new(AtomicBool::new(false))); // Flag to log setup steps only once
 static LOGGED_STEPS: Lazy<Mutex<HashSet<String>>> = Lazy::new(|| Mutex::new(HashSet::new())); // Flag to ensure logs are entered once
@@ -49,35 +46,41 @@ fn render_process_logs(ctx: &Context) {
     });
 }
 
-// Function to render captured packets
-fn render_packets(ctx: &Context) {
-    SidePanel::right("captured_packets").show(ctx, |ui| {
-        ui.heading("Captured Packets");
-        ScrollArea::vertical().show(ui, |ui| {
-            let packets = CAPTURED_PACKETS.lock().expect("Failed to lock captured packets");
-            for packet in packets.iter().rev().take(20) { // Show last 20 packets
-                ui.label(packet);
-            }
-        });
-    });
-}
-
 static RENDER_LOGGED: Lazy<AtomicBool> = Lazy::new(|| AtomicBool::new(false));
 
-pub fn render_pc_menu(ctx: &Context, shared_state: &SharedAppState, state: &mut MenuState, log_buffers: &LogBuffers) {
+// Helper function to check if DLL is loaded
+fn is_dll_loaded() -> bool {
+    // Implement your DLL loading check logic here
+    // For example, you could attempt to load the DLL and return true if successful
+    true // Placeholder, replace with actual check
+}
+
+// Function to render the packet capture menu
+pub fn render_pc_menu(ctx: &eframe::egui::Context, shared_state: &SharedAppState, state: &mut MenuState, log_buffers: &LogBuffers) {
     // Log the setup steps only once
     if !SETUP_LOGGED.load(Ordering::SeqCst) {
         let setup_steps = [
-            "DLL found...", 
             "Aligning pc_menu...", 
             "Aligning packet sniffer...", 
             "Aligning DLL...", 
             "Prepping packet capture...", 
             "Packet capture prepped. Select Start Capture."
         ];
+
+        // Check if DLL is loaded
+        if is_dll_loaded() {
+            log_process_step(log_buffers, "DLL found...");
+        } else {
+            error!("DLL not found.");
+            log_process_step(log_buffers, "DLL not found.");
+            log_error(log_buffers, "DLL not found.");
+            return;
+        }
+
         for step in setup_steps.iter() {
             log_process_step(log_buffers, step);
         }
+
         SETUP_LOGGED.store(true, Ordering::SeqCst);
     }
 
@@ -93,7 +96,7 @@ pub fn render_pc_menu(ctx: &Context, shared_state: &SharedAppState, state: &mut 
         MenuItem {
             label: "Start Capture".to_string(),
             action: Some(Box::new({
-                let capturing = Arc::clone(&CAPTURING);
+                let capturing: Arc<AtomicBool> = Arc::clone(&CAPTURING);
                 let log_buffers = log_buffers.clone();
                 let ctx = ctx.clone();
                 move || {
@@ -126,7 +129,7 @@ pub fn render_pc_menu(ctx: &Context, shared_state: &SharedAppState, state: &mut 
         MenuItem {
             label: "Stop Capture".to_string(),
             action: Some(Box::new({
-                let capturing = Arc::clone(&CAPTURING);
+                let capturing: Arc<AtomicBool> = Arc::clone(&CAPTURING);
                 let log_buffers = log_buffers.clone();
                 move || {
                     if capturing.load(Ordering::SeqCst) {
@@ -170,17 +173,20 @@ pub fn render_pc_menu(ctx: &Context, shared_state: &SharedAppState, state: &mut 
     debug!("Rendering the main menu with title: {}", title);
     log_process_step(log_buffers, &format!("Rendering the main menu with title: {}", title));
 
+    // Define the is_admin flag based on your logic
+    let is_admin = true; // Set this according to your logic
+
     // Render the main menu
     CentralPanel::default().show(ctx, |_ui| {
         debug!("Calling render_menu...");
         log_process_step(log_buffers, "Calling render_menu...");
-        if let Err(e) = render_menu(ctx, title, &menu_items, state, log_buffers, log_buffers.info_buffer.clone()) {
+        if let Err(e) = render_menu(ctx, title, &menu_items, state, log_buffers, log_buffers.info_buffer.clone(), is_admin) {
             error!("Failed to render menu: {:?}", e);
             log_error(&log_buffers, &format!("Failed to render menu: {:?}", e));
             log_process_step(&log_buffers, &format!("Failed to render menu: {:?}", e));
         }
         debug!("render_menu completed.");
-        log_process_step(log_buffers, "render_menu completed.");
+        log_process_step(&log_buffers, "render_menu completed.");
     });
 
     // Render process logs
@@ -196,69 +202,4 @@ pub fn render_pc_menu(ctx: &Context, shared_state: &SharedAppState, state: &mut 
     render_packets(ctx);
     debug!("Rendering captured packets completed.");
     log_process_step(log_buffers, "Rendering captured packets completed.");
-}
-
-fn spawn_capture_thread(capturing: Arc<AtomicBool>, ctx: Context, log_buffers: LogBuffers) {
-    log_process_step(&log_buffers, "Inside spawn_capture_thread function...");
-
-    thread::spawn(move || {
-        while capturing.load(Ordering::SeqCst) {
-            log_process_step(&log_buffers, "Attempting to capture packet...");
-            if let Err(e) = packet_sniffer::capture_packet_data(&log_buffers) {
-                error!("Failed to capture packet: {:?}", e);
-                log_error(&log_buffers, &format!("Failed to capture packet: {:?}", e));
-                log_process_step(&log_buffers, &format!("Failed to capture packet: {:?}", e));
-                break;
-            }
-
-            log_info(&log_buffers, "Calling GET_PACKET_COUNT function...");
-            log_process_step(&log_buffers, "Calling GET_PACKET_COUNT function...");
-            let count = match packet_sniffer::get_captured_packet_count(&log_buffers) {
-                Ok(count) => count,
-                Err(e) => {
-                    error!("Failed to get packet count: {:?}", e);
-                    log_error(&log_buffers, &format!("Failed to get packet count: {:?}", e));
-                    log_process_step(&log_buffers, &format!("Failed to get packet count: {:?}", e));
-                    break;
-                }
-            };
-
-            log_info(&log_buffers, &format!("Packet count: {}", count));
-            log_process_step(&log_buffers, &format!("Packet count: {}", count));
-            let mut packets = CAPTURED_PACKETS.lock().expect("Failed to lock captured packets for writing");
-            for i in 0..count {
-                log_info(&log_buffers, &format!("Getting packet at index {}", i));
-                log_process_step(&log_buffers, &format!("Getting packet at index {}", i));
-                match packet_sniffer::get_captured_packet(i, &log_buffers) {
-                    Ok(Some(packet)) => {
-                        let packet_data = packet_sniffer::human_readable_packet_data(&packet);
-                        log_info(&log_buffers, &format!("Captured packet:\n{}", &packet_data));
-                        packets.push(packet_data.clone()); // Clone the string before pushing
-                        info!("Captured packet:\n{}", packet_data);
-                        log_process_step(&log_buffers, &format!("Captured packet:\n{}", packet_data));
-                    },
-                    Ok(None) => {
-                        error!("Failed to get packet: pointer is null at index {}", i);
-                        log_error(&log_buffers, &format!("Failed to get packet: pointer is null at index {}", i));
-                        log_process_step(&log_buffers, &format!("Failed to get packet: pointer is null at index {}", i));
-                    },
-                    Err(e) => {
-                        error!("Failed to access get_packet function: {:?}", e);
-                        log_error(&log_buffers, &format!("Failed to access get_packet function: {:?}", e));
-                        log_process_step(&log_buffers, &format!("Failed to access get_packet function: {:?}", e));
-                        break;
-                    }
-                }
-            }
-            drop(packets); // Explicitly drop lock to ensure it is released
-            ctx.request_repaint(); // Request UI repaint to update packet list
-            log_info(&log_buffers, "Sleeping for 500 ms...");
-            log_process_step(&log_buffers, "Sleeping for 500 ms...");
-            thread::sleep(Duration::from_millis(500));
-        }
-
-        log_info(&log_buffers, "Exiting packet capture thread...");
-        log_process_step(&log_buffers, "Exiting packet capture thread...");
-        ctx.request_repaint(); // Ensure UI repaint after capture thread ends
-    });
 }

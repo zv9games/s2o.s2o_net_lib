@@ -1,4 +1,4 @@
-use crate::menu_rendering::{MenuItem, MenuState, render_menu, default_settings};
+use crate::gui_engine::{MenuItem, MenuState, render_menu, default_settings};
 use crate::app_state::{SharedAppState, AppState};
 use crate::logging::{LogBuffers, log_info};
 use crate::pc_menu::run_ui;
@@ -67,7 +67,9 @@ impl eframe::App for ProgramMenuApp {
         match current_app_state {
             AppState::ProgramMenu => {
                 log_process_step(&self.log_buffers, "Rendering program menu.");
-                if let Err(e) = render_menu(ctx, "S2O's s2o_net_lib Crate", &self.menu_items(), &mut self.state, &self.log_buffers, self.log_buffers.info_buffer.clone()) {
+                // Add the missing is_admin argument here
+                let is_admin = true; // Set this based on your logic
+                if let Err(e) = render_menu(ctx, "S2O's s2o_net_lib Crate", &self.menu_items(), &mut self.state, &self.log_buffers, self.log_buffers.info_buffer.clone(), is_admin) {
                     log_process_step(&self.log_buffers, &format!("Failed to render menu: {}", e));
                     return;
                 }
@@ -112,6 +114,7 @@ impl eframe::App for ProgramMenuApp {
         }
     }
 }
+
 
 
 impl ProgramMenuApp {

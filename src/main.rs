@@ -1,12 +1,13 @@
 mod logging;
 mod initialization;
 mod app_state;
-mod menu_rendering;
+mod gui_engine;
 mod s_menu;
 mod p_menu;
 mod ns_menu;
 mod ds_menu;
 mod pc_menu;
+mod packet_capture;
 mod packet_sniffer;
 
 use log::{info, error};

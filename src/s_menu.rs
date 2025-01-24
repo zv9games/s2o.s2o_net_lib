@@ -1,4 +1,4 @@
-use crate::menu_rendering::{MenuItem, MenuState, render_menu, default_settings};
+use crate::gui_engine::{MenuItem, MenuState, render_menu, default_settings};
 use crate::app_state::SharedAppState;
 use std::sync::{Arc, Mutex};
 use crate::logging::{LogBuffers, log_info};
@@ -9,7 +9,7 @@ use std::io::Error as IoError; // Import IoError for error conversion
 // Shared static variable for logging steps
 static LOGGED_STEPS: Lazy<Mutex<HashSet<String>>> = Lazy::new(|| Mutex::new(HashSet::new()));
 
-fn log_process_step(log_buffers: &LogBuffers, step: &str) {
+pub fn log_process_step(log_buffers: &LogBuffers, step: &str) {
     let mut logged_steps = LOGGED_STEPS.lock().expect("Failed to lock LOGGED_STEPS");
     if !logged_steps.contains(step) {
         logged_steps.insert(step.to_string());
@@ -57,6 +57,7 @@ pub fn security_menu_loop(log_buffers: &LogBuffers, _shared_state: &SharedAppSta
                 menu_items,
                 log_buffer,
                 log_buffers: log_buffers.clone(),
+                is_admin: false, // Default to false, can be set to true if needed
             }))
         }),
     ) {
@@ -71,12 +72,13 @@ struct SecurityMenuApp {
     menu_items: Vec<MenuItem>,
     log_buffer: Arc<Mutex<Vec<String>>>,
     log_buffers: LogBuffers,
+    is_admin: bool, // Add is_admin field
 }
 
 impl eframe::App for SecurityMenuApp {
     fn update(&mut self, ctx: &eframe::egui::Context, _frame: &mut eframe::Frame) {
         log_process_step(&self.log_buffers, "Update method called for security menu.");
-        if let Err(e) = render_menu(ctx, "Security Menu", &self.menu_items, &mut self.state, &self.log_buffers, self.log_buffer.clone()) {
+        if let Err(e) = render_menu(ctx, "Security Menu", &self.menu_items, &mut self.state, &self.log_buffers, self.log_buffer.clone(), self.is_admin) {
             log_process_step(&self.log_buffers, &format!("Failed to render menu: {}", e));
         }
         log_process_step(&self.log_buffers, "Security menu rendered.");

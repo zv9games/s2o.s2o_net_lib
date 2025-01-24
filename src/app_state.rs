@@ -31,4 +31,3 @@ impl SharedAppState {
         state.clone()
     }
 }
-
