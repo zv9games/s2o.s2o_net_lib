@@ -119,7 +119,7 @@ pub fn render_menu(
                         if item_response.clicked() {
                             if let Some(action) = &item.action {
                                 action();
-                                log_info(log_buffers, &format!("Action executed for: {}", item.label));
+                                log_info(log_buffers, &format!("Action executed for: {}", item.label), false); // Allow repeated log
                             }
                         }
                     }

@@ -7,53 +7,52 @@ use std::env;
 use std::io::{self, Error as IoError};
 
 pub fn initialize_application(log_buffers: &LogBuffers) -> Result<(), IoError> {
-    log_info(log_buffers, "Starting application initialization...");
-
-    log_info(log_buffers, "Setting DLL path...");
+    log_info(log_buffers, "Starting application initialization...", false); // Allow repeated log
+    log_info(log_buffers, "Setting DLL path...", false); // Allow repeated log
     set_dll_path(log_buffers)?;
-    log_info(log_buffers, "DLL path set successfully.");
+    log_info(log_buffers, "DLL path set successfully.", false); // Allow repeated log
 
     let shared_state = SharedAppState::new(AppState::ProgramMenu); // Initialize shared application state
 
-    log_info(log_buffers, "Initializing security menu...");
+    log_info(log_buffers, "Initializing security menu...", false); // Allow repeated log
     s_menu::init_s_menu(log_buffers)?;
 
-    log_info(log_buffers, "Checking for elevated privileges...");
+    log_info(log_buffers, "Checking for elevated privileges...", false); // Allow repeated log
     if is_elevated(log_buffers) {
-        log_info(log_buffers, "Application is running with elevated privileges.");
+        log_info(log_buffers, "Application is running with elevated privileges.", true); // Restrict repeated log
         p_menu::program_menu_loop(&shared_state, log_buffers);
     } else {
-        log_info(log_buffers, "Application is running without elevated privileges.");
+        log_info(log_buffers, "Application is running without elevated privileges.", true); // Restrict repeated log
         s_menu::security_menu_loop(log_buffers, &shared_state);
     }
 
-    log_info(log_buffers, "Initialization process completed successfully.");
+    log_info(log_buffers, "Initialization process completed successfully.", false); // Allow repeated log
     Ok(())
 }
 
 fn set_dll_path(log_buffers: &LogBuffers) -> Result<(), IoError> {
-    log_info(log_buffers, "Determining current directory for DLL path...");
+    log_info(log_buffers, "Determining current directory for DLL path...", false); // Allow repeated log
     let current_dir = env::current_dir()?;
     let dll_dir = current_dir.join("src/s2o_dll");
 
     if !dll_dir.exists() {
-        log_error(log_buffers, &format!("DLL directory not found: {:?}", dll_dir));
+        log_error(log_buffers, &format!("DLL directory not found: {:?}", dll_dir), false); // Allow repeated log
         return Err(IoError::new(io::ErrorKind::NotFound, "DLL directory not found"));
     }
 
-    log_info(log_buffers, "Updating PATH environment variable...");
+    log_info(log_buffers, "Updating PATH environment variable...", false); // Allow repeated log
     let old_path = env::var("PATH").unwrap_or_default();
     if !old_path.contains(&dll_dir.display().to_string()) {
         env::set_var("PATH", format!("{};{}", dll_dir.display(), old_path));
     }
 
-    log_info(log_buffers, &format!("DLL Directory set to: {:?}", dll_dir));
-    log_info(log_buffers, &format!("PATH updated to: {}", env::var("PATH").unwrap()));
+    log_info(log_buffers, &format!("DLL Directory set to: {:?}", dll_dir), true); // Restrict repeated log
+    log_info(log_buffers, &format!("PATH updated to: {}", env::var("PATH").unwrap()), true); // Restrict repeated log
     Ok(())
 }
 
 fn is_elevated(log_buffers: &LogBuffers) -> bool {
-    log_info(log_buffers, "Checking if the application is running with elevated privileges...");
+    log_info(log_buffers, "Checking if the application is running with elevated privileges...", false); // Allow repeated log
     use winapi::um::processthreadsapi::OpenProcessToken;
     use winapi::um::securitybaseapi::GetTokenInformation;
     use winapi::um::winnt::{TOKEN_ELEVATION, HANDLE};
@@ -63,7 +62,7 @@ fn is_elevated(log_buffers: &LogBuffers) -> bool {
     unsafe {
         let mut token_handle: HANDLE = std::ptr::null_mut();
         if OpenProcessToken(GetCurrentProcess(), 0x0008 /* TOKEN_QUERY */, &mut token_handle) == FALSE {
-            log_error(log_buffers, "Failed to open process token.");
+            log_error(log_buffers, "Failed to open process token.", false); // Allow repeated log
             return false;
         }
 
@@ -78,12 +77,12 @@ fn is_elevated(log_buffers: &LogBuffers) -> bool {
         );
 
         if result == FALSE {
-            log_error(log_buffers, "Failed to get token information.");
+            log_error(log_buffers, "Failed to get token information.", false); // Allow repeated log
             return false;
         }
 
         let is_elevated = token_elevation.TokenIsElevated != 0;
-        log_info(log_buffers, &format!("Token elevation status: {}", is_elevated));
+        log_info(log_buffers, &format!("Token elevation status: {}", is_elevated), true); // Restrict repeated log
         is_elevated
     }
 }

@@ -13,7 +13,7 @@ pub fn log_process_step(log_buffers: &LogBuffers, step: &str) {
     let mut logged_steps = LOGGED_STEPS.lock().expect("Failed to lock LOGGED_STEPS");
     if !logged_steps.contains(step) {
         logged_steps.insert(step.to_string());
-        log_info(log_buffers, step);
+        log_info(log_buffers, step, false); // Allow repeated log
     }
 }
 
@@ -109,7 +109,7 @@ fn run_admin_menu(log_buffers: &LogBuffers) {
 }
 
 pub fn init_s_menu(log_buffers: &LogBuffers) -> Result<(), IoError> {
-    log_info(log_buffers, "Initializing security menu...");
+    log_info(log_buffers, "Initializing security menu...", false); // Allow repeated log
     // Implement security menu initialization here
     Ok(())
 }

@@ -7,6 +7,7 @@ mod p_menu;
 mod ns_menu;
 mod ds_menu;
 mod pc_menu;
+mod process_log;
 mod packet_capture;
 mod packet_sniffer;
 

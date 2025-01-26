@@ -19,7 +19,7 @@ fn log_process_step(log_buffers: &LogBuffers, step: &str) {
     let mut logged_steps = LOGGED_STEPS.lock().expect("Failed to lock LOGGED_STEPS");
     if !logged_steps.contains(step) {
         logged_steps.insert(step.to_string());
-        log_info(log_buffers, step);
+        log_info(log_buffers, step, false); // Allow repeated log
     }
 }
 
@@ -114,8 +114,6 @@ impl eframe::App for ProgramMenuApp {
         }
     }
 }
-
-
 
 impl ProgramMenuApp {
     fn menu_items(&self) -> Vec<MenuItem> {

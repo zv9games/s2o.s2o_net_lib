@@ -41,16 +41,18 @@ pub fn init_logging() -> Result<(), Error> {
     Ok(())
 }
 
-pub fn log_info(log_buffers: &LogBuffers, message: &str) {
-    let mut log_set = log_buffers.info_log_set.lock().unwrap_or_else(|_| {
-        error!("Failed to lock info log set");
-        std::process::exit(1);
-    });
+pub fn log_info(log_buffers: &LogBuffers, message: &str, restrict: bool) {
+    if restrict {
+        let mut log_set = log_buffers.info_log_set.lock().unwrap_or_else(|_| {
+            error!("Failed to lock info log set");
+            std::process::exit(1);
+        });
 
-    if log_set.contains(message) {
-        return;
+        if log_set.contains(message) {
+            return;
+        }
+        log_set.insert(message.to_string());
     }
-    log_set.insert(message.to_string());
 
     let mut buffer = log_buffers.info_buffer.lock().unwrap_or_else(|_| {
         error!("Failed to lock info buffer");
@@ -68,16 +70,18 @@ pub fn log_info(log_buffers: &LogBuffers, message: &str) {
     }
 }
 
-pub fn log_error(log_buffers: &LogBuffers, message: &str) {
-    let mut log_set = log_buffers.error_log_set.lock().unwrap_or_else(|_| {
-        error!("Failed to lock error log set");
-        std::process::exit(1);
-    });
+pub fn log_error(log_buffers: &LogBuffers, message: &str, restrict: bool) {
+    if restrict {
+        let mut log_set = log_buffers.error_log_set.lock().unwrap_or_else(|_| {
+            error!("Failed to lock error log set");
+            std::process::exit(1);
+        });
 
-    if log_set.contains(message) {
-        return;
+        if log_set.contains(message) {
+            return;
+        }
+        log_set.insert(message.to_string());
     }
-    log_set.insert(message.to_string());
 
     let mut buffer = log_buffers.error_buffer.lock().unwrap_or_else(|_| {
         error!("Failed to lock error buffer");
