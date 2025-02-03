@@ -1,33 +1,25 @@
-use std::sync::{Arc, Mutex};
+use crate::logging;
 
-#[derive(Clone, Debug, PartialEq)]
+pub fn init_module() -> Result<(), String> {
+    // Placeholder for actual initialization logic
+    let initialization_passed = true;
+
+    if initialization_passed {
+        logging::debug_info("app_state module is online");
+        Ok(())
+    } else {
+        Err("app_state module initialization failed".to_string())
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum AppState {
-    ProgramMenu,
-    DSMenu,
+    SMenu,
+    PMenu,
+    PCMenu,
     NSMenu,
-    PacketCaptureMenu,
-    SecurityMenu,
+    DSMenu,
 }
 
-#[derive(Clone, Debug)]
-pub struct SharedAppState {
-    pub app_state: Arc<Mutex<AppState>>,
-}
-
-impl SharedAppState {
-    pub fn new(initial_state: AppState) -> Self {
-        Self {
-            app_state: Arc::new(Mutex::new(initial_state)),
-        }
-    }
-
-    pub fn set_state(&self, new_state: AppState) {
-        let mut state = self.app_state.lock().expect("Failed to lock app state for setting");
-        *state = new_state;
-    }
-
-    pub fn get_state(&self) -> AppState {
-        let state = self.app_state.lock().expect("Failed to lock app state for getting");
-        state.clone()
-    }
-}
+pub trait SetAppState: Fn(AppState) {}
+impl<T> SetAppState for T where T: Fn(AppState) {}

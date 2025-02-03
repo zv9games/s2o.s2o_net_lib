@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\S2O\\s2o_net_lib\\src\\s2o_dll\\s2o_net_lib_dll_vs_tester\\vs_dll_tester\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D47A8329-54BE-4656-8305-EE0C6BE86815}|vs_dll_tester.vcxproj|C:\\S2O\\s2o_net_lib\\src\\s2o_dll\\s2o_net_lib_dll_vs_tester\\vs_dll_tester\\vs_dll_tester.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D47A8329-54BE-4656-8305-EE0C6BE86815}|vs_dll_tester.vcxproj|solutionrelative:vs_dll_tester.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "vs_dll_tester.cpp",
+              "DocumentMoniker": "C:\\S2O\\s2o_net_lib\\src\\s2o_dll\\s2o_net_lib_dll_vs_tester\\vs_dll_tester\\vs_dll_tester.cpp",
+              "RelativeDocumentMoniker": "vs_dll_tester.cpp",
+              "ToolTip": "C:\\S2O\\s2o_net_lib\\src\\s2o_dll\\s2o_net_lib_dll_vs_tester\\vs_dll_tester\\vs_dll_tester.cpp",
+              "RelativeToolTip": "vs_dll_tester.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-01-26T19:54:27.761Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

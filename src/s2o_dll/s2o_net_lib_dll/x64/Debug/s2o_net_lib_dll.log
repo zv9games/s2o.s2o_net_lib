@@ -1,0 +1,5 @@
+﻿  packet_sniffer.cpp
+C:\S2O\s2o_net_lib\src\s2o_dll\packet_sniffer.cpp(79,36): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+C:\S2O\s2o_net_lib\src\s2o_dll\packet_sniffer.cpp(176,36): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+     Creating library C:\S2O\s2o_net_lib\src\s2o_dll\x64\Debug\s2o_net_lib_dll.lib and object C:\S2O\s2o_net_lib\src\s2o_dll\x64\Debug\s2o_net_lib_dll.exp
+  s2o_net_lib_dll.vcxproj -> C:\S2O\s2o_net_lib\src\s2o_dll\x64\Debug\s2o_net_lib_dll.dll

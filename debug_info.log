@@ -1,45 +1,797 @@
-17:11:39 [INFO] Logging initialized successfully.
-17:11:39 [INFO] Running the application initialization process...
-17:11:39 [INFO] Starting application initialization...
-Starting application initialization...
-17:11:39 [INFO] Setting DLL path...
-Setting DLL path...
-17:11:39 [INFO] Determining current directory for DLL path...
-Determining current directory for DLL path...
-17:11:39 [INFO] Updating PATH environment variable...
-Updating PATH environment variable...
-17:11:39 [INFO] DLL Directory set to: "C:\\s2o\\s2o_net_lib\\src/s2o_dll"
-DLL Directory set to: "C:\\s2o\\s2o_net_lib\\src/s2o_dll"
-17:11:39 [INFO] PATH updated to: C:\s2o\s2o_net_lib\src/s2o_dll;C:\s2o\s2o_net_lib\target\debug\deps;C:\s2o\s2o_net_lib\target\debug;C:\Users\grego\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;C:\Program Files\Python39\Scripts\;C:\Program Files\Python39\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Users\grego\.cargo\bin;C:\Users\grego\AppData\Local\Microsoft\WindowsApps;C:\Users\grego\.dotnet\tools;C:\Program Files\Wireshark
-PATH updated to: C:\s2o\s2o_net_lib\src/s2o_dll;C:\s2o\s2o_net_lib\target\debug\deps;C:\s2o\s2o_net_lib\target\debug;C:\Users\grego\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\x86_64-pc-windows-msvc\lib;C:\Program Files\Python39\Scripts\;C:\Program Files\Python39\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Microsoft Network Monitor 3\;C:\Users\grego\.cargo\bin;C:\Users\grego\AppData\Local\Microsoft\WindowsApps;C:\Users\grego\.dotnet\tools;C:\Program Files\Wireshark
-17:11:39 [INFO] DLL path set successfully.
-DLL path set successfully.
-17:11:39 [INFO] Initializing security menu...
-Initializing security menu...
-17:11:39 [INFO] Initializing security menu...
-Initializing security menu...
-17:11:39 [INFO] Checking for elevated privileges...
-Checking for elevated privileges...
-17:11:39 [INFO] Checking if the application is running with elevated privileges...
-Checking if the application is running with elevated privileges...
-17:11:39 [INFO] Token elevation status: false
-Token elevation status: false
-17:11:39 [INFO] Application is running without elevated privileges.
-Application is running without elevated privileges.
-17:11:39 [INFO] Security menu loop started.
-Security menu loop started.
-17:11:39 [INFO] Menu items initialized.
-Menu items initialized.
-17:11:39 [INFO] Menu state initialized with default settings.
-Menu state initialized with default settings.
-17:11:39 [INFO] Starting native application for security menu.
-Starting native application for security menu.
-17:11:39 [INFO] Update method called for security menu.
-Update method called for security menu.
-17:11:39 [INFO] Security menu rendered.
-Security menu rendered.
-17:11:43 [INFO] Security menu running.
-Security menu running.
-17:11:43 [INFO] Initialization process completed successfully.
-Initialization process completed successfully.
-17:11:43 [INFO] Application initialization completed successfully.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Admin Menu selected.
+[INFO] Admin Menu action triggered. Requesting elevated permissions.
+[INFO] Admin Menu script executed successfully. Output: stdout: , stderr: 
+[INFO] Action executed for: Admin Menu
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Packet Capture selected.
+[INFO] App state changed to PCMenu
+[INFO] Action executed for: Packet Capture
+[INFO] Current app state in PMenuApp: PCMenu
+[INFO] Transitioning to Packet Capture Menu.
+[INFO] Packet capture menu loop started.
+[INFO] Native security menu running.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Admin Menu selected.
+[INFO] Admin Menu action triggered. Requesting elevated permissions.
+[INFO] Admin Menu script executed successfully. Output: stdout: , stderr: 
+[INFO] Action executed for: Admin Menu
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Packet Capture selected.
+[INFO] App state changed to PCMenu
+[INFO] Action executed for: Packet Capture
+[INFO] Current app state in PMenuApp: PCMenu
+[INFO] Transitioning to Packet Capture Menu.
+[INFO] Packet capture menu loop started.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Admin Menu selected.
+[INFO] Admin Menu action triggered. Requesting elevated permissions.
+[INFO] Admin Menu script executed successfully. Output: stdout: , stderr: 
+[INFO] Action executed for: Admin Menu
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Packet Capture selected.
+[INFO] App state changed to PCMenu
+[INFO] Action executed for: Packet Capture
+[INFO] Current app state in PMenuApp: PCMenu
+[INFO] Transitioning to Packet Capture Menu.
+[INFO] Packet capture menu loop started.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Admin Menu selected.
+[INFO] Admin Menu action triggered. Requesting elevated permissions.
+[INFO] Admin Menu script executed successfully. Output: stdout: , stderr: 
+[INFO] Action executed for: Admin Menu
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Packet Capture selected.
+[INFO] App state changed to PCMenu
+[INFO] Action executed for: Packet Capture
+[INFO] Current app state in PMenuApp: PCMenu
+[INFO] Transitioning to Packet Capture Menu.
+[INFO] Packet capture menu loop started.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: SMenu
+[INFO] Calling smenu_loop
+[INFO] Security menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for security menu.
+[INFO] Current app state: SMenu
+[INFO] Rendering security menu.
+[INFO] Creating menu items for security menu.
+[INFO] Admin Menu selected.
+[INFO] Admin Menu action triggered. Requesting elevated permissions.
+[INFO] Admin Menu script executed successfully. Output: stdout: , stderr: 
+[INFO] Action executed for: Admin Menu
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Packet Capture selected.
+[INFO] App state changed to PCMenu
+[INFO] Action executed for: Packet Capture
+[INFO] Current app state in PMenuApp: PCMenu
+[INFO] Transitioning to Packet Capture Menu.
+[INFO] Packet capture menu loop started.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Network Settings selected.
+[INFO] App state changed to NSMenu
+[INFO] Action executed for: Network Settings
+[INFO] Current app state in PMenuApp: NSMenu
+[INFO] Transitioning to Network Settings Menu.
+[INFO] Network settings menu loop started.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running with administrative privileges. Setting initial state to PMenu.
+[INFO] Initial state set to PMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: true
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Current app state in foundation loop: PMenu
+[INFO] Calling pmenu_loop
+[INFO] Program menu loop started.
+[INFO] Menu state initialized with default settings.
+[INFO] Update method called for program menu.
+[INFO] Current app state in PMenuApp: PMenu
+[INFO] Rendering program menu.
+[INFO] Creating menu items for program menu.
+[INFO] Checking for state transitions.
+[INFO] Data Speed selected.
+[INFO] App state changed to DSMenu
+[INFO] Action executed for: Data Speed
+[INFO] Current app state in PMenuApp: DSMenu
+[INFO] Transitioning to Data Speed Menu.
+[INFO] Data speed menu loop started.
+[INFO] Exiting application from security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing packet_capture.
+[INFO] packet_capture is online.
+[INFO] Initializing nc.
+[INFO] nc is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.
+[INFO] Pinging logging system to confirm it's active...
+[INFO] Logging is online.
+[INFO] Initializing app_state.
+[INFO] Running without administrative privileges. Setting initial state to SMenu.
+[INFO] Initial state set to SMenu
+[INFO] app_state is online.
+[INFO] Initializing gui_engine.
+[INFO] Admin status: false
+[INFO] gui_engine is online.
+[INFO] Initializing smenu.
+[INFO] smenu is online.
+[INFO] Initializing pmenu.
+[INFO] pmenu is online.
+[INFO] Initializing pcmenu.
+[INFO] pcmenu is online.
+[INFO] Initializing dsmenu.
+[INFO] dsmenu is online.
+[INFO] Initializing nsmenu.
+[INFO] nsmenu is online.
+[INFO] Initializing admin_check.
+[INFO] admin_check is online.
+[INFO] Initializing process_log.
+[INFO] process_log is online.
+[INFO] Initialization process completed successfully.
+[INFO] Starting the foundation loop.
+[INFO] Program menu loop started.
+[INFO] Administrative privileges not granted. Redirecting to security menu.
+[INFO] App state changed to SMenu
+[INFO] Redirected to security menu.

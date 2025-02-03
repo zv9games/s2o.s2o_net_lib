@@ -1,88 +1,105 @@
+use crate::admin_check;
+use crate::initialization;
+use crate::logging;
+use crate::app_state;
+use crate::gui_engine;
 use crate::s_menu;
 use crate::p_menu;
+use crate::pc_menu;
+use crate::ds_menu;
+use crate::ns_menu;
 
-use crate::app_state::{SharedAppState, AppState};
-use crate::logging::{LogBuffers, log_info, log_error};
-use std::env;
-use std::io::{self, Error as IoError};
 
-pub fn initialize_application(log_buffers: &LogBuffers) -> Result<(), IoError> {
-    log_info(log_buffers, "Starting application initialization...", false); // Allow repeated log
-    log_info(log_buffers, "Setting DLL path...", false); // Allow repeated log
-    set_dll_path(log_buffers)?;
-    log_info(log_buffers, "DLL path set successfully.", false); // Allow repeated log
+pub fn init_module() -> Result<(), String> {
+    // Placeholder for actual initialization logic
+    let initialization_passed = true;
 
-    let shared_state = SharedAppState::new(AppState::ProgramMenu); // Initialize shared application state
-
-    log_info(log_buffers, "Initializing security menu...", false); // Allow repeated log
-    s_menu::init_s_menu(log_buffers)?;
-
-    log_info(log_buffers, "Checking for elevated privileges...", false); // Allow repeated log
-    if is_elevated(log_buffers) {
-        log_info(log_buffers, "Application is running with elevated privileges.", true); // Restrict repeated log
-        p_menu::program_menu_loop(&shared_state, log_buffers);
+    if initialization_passed {
+        logging::debug_info("initialization module is online");
+        Ok(())
     } else {
-        log_info(log_buffers, "Application is running without elevated privileges.", true); // Restrict repeated log
-        s_menu::security_menu_loop(log_buffers, &shared_state);
+        Err("initialization module initialization failed".to_string())
+    }
+}
+
+pub fn s2o_bootup() -> Result<(), String> {
+    // Print a message to indicate the initialization process has started
+    logging::debug_info("Initialization is being called");
+
+    // Step 1: Check modules
+    check_modules()?;
+
+    // Step 2: Set up configurations
+    if let Err(e) = setup_configurations() {
+        return Err(format!("Configuration setup failed: {}", e));
     }
 
-    log_info(log_buffers, "Initialization process completed successfully.", false); // Allow repeated log
+    // Step 3: Check environment settings
+    if let Err(e) = check_environment() {
+        return Err(format!("Environment check failed: {}", e));
+    }
+
+    // Step 4: Initialize core components
+    if let Err(e) = initialize_components() {
+        return Err(format!("Component initialization failed: {}", e));
+    }
+
+    // Add any other initialization logic here
+    // For example, establish database connections, prepare caches, etc.
+
+    // Print a message to indicate the initialization process is complete
+    logging::debug_info("Initialization complete");
+	gui_engine::start_gui();
+
     Ok(())
 }
 
-fn set_dll_path(log_buffers: &LogBuffers) -> Result<(), IoError> {
-    log_info(log_buffers, "Determining current directory for DLL path...", false); // Allow repeated log
-    let current_dir = env::current_dir()?;
-    let dll_dir = current_dir.join("src/s2o_dll");
-
-    if !dll_dir.exists() {
-        log_error(log_buffers, &format!("DLL directory not found: {:?}", dll_dir), false); // Allow repeated log
-        return Err(IoError::new(io::ErrorKind::NotFound, "DLL directory not found"));
+fn check_modules() -> Result<(), String> {
+    
+    if let Err(e) = logging::init_module() {
+        logging::debug_info("Failed to initialize logging module...");
+        return Err(format!("Failed to initialize logging module: {}", e));
     }
 
-    log_info(log_buffers, "Updating PATH environment variable...", false); // Allow repeated log
-    let old_path = env::var("PATH").unwrap_or_default();
-    if !old_path.contains(&dll_dir.display().to_string()) {
-        env::set_var("PATH", format!("{};{}", dll_dir.display(), old_path));
-    }
+    initialization::init_module()?;
+	admin_check::init_module()?;
+    app_state::init_module()?;
+    gui_engine::init_module()?;
+    s_menu::init_module()?;
+    p_menu::init_module()?;
+    pc_menu::init_module()?;
+    ns_menu::init_module()?;
+    ds_menu::init_module()?;
+    // packet_capture::init_module()?;
+    // nc::init_module()?;
+    // module_12::init_module()?;
+    // module_13::init_module()?;
+    // module_14::init_module()?;
+    // module_15::init_module()?;
+    // module_16::init_module()?;
 
-    log_info(log_buffers, &format!("DLL Directory set to: {:?}", dll_dir), true); // Restrict repeated log
-    log_info(log_buffers, &format!("PATH updated to: {}", env::var("PATH").unwrap()), true); // Restrict repeated log
+    logging::debug_info("All modules initialized successfully");
+
     Ok(())
 }
 
-fn is_elevated(log_buffers: &LogBuffers) -> bool {
-    log_info(log_buffers, "Checking if the application is running with elevated privileges...", false); // Allow repeated log
-    use winapi::um::processthreadsapi::OpenProcessToken;
-    use winapi::um::securitybaseapi::GetTokenInformation;
-    use winapi::um::winnt::{TOKEN_ELEVATION, HANDLE};
-    use winapi::um::processthreadsapi::GetCurrentProcess;
-    use winapi::shared::minwindef::{DWORD, FALSE};
+fn setup_configurations() -> Result<(), String> {
+    // Add your configuration setup logic here
+    logging::debug_info("Check 1");
+    // Simulate configuration setup
+    Ok(())
+}
 
-    unsafe {
-        let mut token_handle: HANDLE = std::ptr::null_mut();
-        if OpenProcessToken(GetCurrentProcess(), 0x0008 /* TOKEN_QUERY */, &mut token_handle) == FALSE {
-            log_error(log_buffers, "Failed to open process token.", false); // Allow repeated log
-            return false;
-        }
+fn check_environment() -> Result<(), String> {
+    // Add your environment check logic here
+    logging::debug_info("Check 2");
+    // Simulate environment check
+    Ok(())
+}
 
-        let mut token_elevation = TOKEN_ELEVATION { TokenIsElevated: 0 };
-        let mut return_length: DWORD = 0;
-        let result = GetTokenInformation(
-            token_handle,
-            winapi::um::winnt::TokenElevation,
-            &mut token_elevation as *mut _ as *mut _,
-            std::mem::size_of::<TOKEN_ELEVATION>() as DWORD,
-            &mut return_length,
-        );
-
-        if result == FALSE {
-            log_error(log_buffers, "Failed to get token information.", false); // Allow repeated log
-            return false;
-        }
-
-        let is_elevated = token_elevation.TokenIsElevated != 0;
-        log_info(log_buffers, &format!("Token elevation status: {}", is_elevated), true); // Restrict repeated log
-        is_elevated
-    }
+fn initialize_components() -> Result<(), String> {
+    // Add your core component initialization logic here
+    logging::debug_info("Check 3");
+    // Simulate component initialization
+    Ok(())
 }

@@ -1,0 +1,2 @@
+cargo:rustc-link-search=native=src/windivert
+cargo:rustc-link-lib=dylib=WinDivert

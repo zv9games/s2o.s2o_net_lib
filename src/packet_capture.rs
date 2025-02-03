@@ -1,116 +1,120 @@
-use std::sync::{Arc, Mutex};
-use std::sync::atomic::{AtomicBool, Ordering};
-use log::{info, error};
-use eframe::egui::{Context, SidePanel, ScrollArea, Window};
-use crate::logging::{LogBuffers, log_info, log_error};
+use std::sync::{Arc, Mutex, mpsc::{channel, Sender, Receiver}};
+use std::sync::atomic::{AtomicBool};
+use eframe::egui::Context;
 use once_cell::sync::Lazy;
-use crate::packet_sniffer;
-use std::thread;
-use std::time::{Duration, Instant};
-use crate::s_menu::log_process_step;
+use crate::logging::{LogBuffers, log_info, log_error};
+use crate::nc::{start_packet_capture, stop_packet_capture, count_packets, print_packet_data};
+use std::io::Error;
 
-// Shared static variables for capturing packets
-pub(crate) static CAPTURED_PACKETS: Lazy<Arc<Mutex<Vec<String>>>> = Lazy::new(|| Arc::new(Mutex::new(Vec::new()))); // Logs for captured packets
-pub(crate) static CAPTURING: Lazy<Arc<AtomicBool>> = Lazy::new(|| Arc::new(AtomicBool::new(false))); // Flag for capturing state
-static SHOW_PACKET_POPUP: Lazy<Arc<AtomicBool>> = Lazy::new(|| Arc::new(AtomicBool::new(false))); // Flag for showing packet popup
+// Wrapping AtomicBool in Lazy for proper initialization
+pub static CAPTURING: Lazy<Arc<Mutex<bool>>> = Lazy::new(|| Arc::new(Mutex::new(false)));
+pub static SHOW_PACKET_POPUP: Lazy<AtomicBool> = Lazy::new(|| AtomicBool::new(false));
+pub static SHOW_PACKET_COUNT_POPUP: Lazy<AtomicBool> = Lazy::new(|| AtomicBool::new(false));
 
-// Function to render captured packets
-pub fn render_packets(ctx: &Context) {
-    SidePanel::right("captured_packets").show(ctx, |ui| {
-        ui.heading("Captured Packets");
-        ScrollArea::vertical().show(ui, |ui| {
-            let packets = CAPTURED_PACKETS.lock().expect("Failed to lock captured packets");
-            for packet in packets.iter().rev().take(20) { // Show last 20 packets
-                ui.label(packet);
-            }
-        });
-    });
+// Channel for sending stop signals
+pub static STOP_CAPTURE_SENDER: Lazy<Mutex<Option<Sender<bool>>>> = Lazy::new(|| Mutex::new(None));
 
-    // Show popup with packet data
-    if SHOW_PACKET_POPUP.load(Ordering::SeqCst) {
-        Window::new("Packet Data")
-            .collapsible(false)
-            .resizable(true)
-            .show(ctx, |ui| {
-                let packets = CAPTURED_PACKETS.lock().expect("Failed to lock captured packets");
-                for packet in packets.iter().take(1) { // Show the first captured packet
-                    ui.label(packet);
-                }
-            });
+pub fn init_packet(log_buffers: &Arc<LogBuffers>) -> Result<(), Error> {
+    log_info(log_buffers, "Initializing packet_capture.", false);
+    
+    Ok(())
+}
+
+pub fn start_capture(log_buffers: &LogBuffers) {
+    if let Err(e) = crate::nc::run_preliminary_tests(log_buffers) {
+        log_error(log_buffers, &format!("Failed preliminary tests: {}", e), false);
+    } else {
+        let mut capturing = CAPTURING.lock().unwrap();
+        *capturing = true;
+        log_info(log_buffers, "Packet capture started.", false);
     }
 }
 
-// Function to spawn a thread for capturing packets
-pub fn spawn_capture_thread(capturing: Arc<AtomicBool>, ctx: Context, log_buffers: LogBuffers) {
-    log_process_step(&log_buffers, "Inside spawn_capture_thread function...");
+pub fn stop_capture(log_buffers: &LogBuffers) {
+    let sender = STOP_CAPTURE_SENDER.lock().unwrap().clone();
+    let log_buffers = log_buffers.clone();
+    std::thread::spawn(move || {
+        if let Some(sender) = sender {
+            sender.send(true).expect("Failed to send stop signal");
+            log_info(&log_buffers, "Packet capture stopped.", false);
+        } else {
+            log_error(&log_buffers, "Stop sender not initialized.", false);
+        }
+    });
+}
 
-    thread::spawn(move || {
-        let mut last_packet_count_check = Instant::now();
+pub fn spawn_capture_thread(ctx: Arc<Context>, log_buffers: Arc<LogBuffers>) {
+    log_info(&log_buffers, "Spawning packet capture thread...", false);
+    let (sender, receiver): (Sender<bool>, Receiver<bool>) = channel(); // Create a new channel for each thread
+    {
+        let mut stop_sender = STOP_CAPTURE_SENDER.lock().unwrap();
+        *stop_sender = Some(sender.clone()); // Use the sender to send the stop signal
+    }
+    std::thread::spawn(move || {
+        let (lib, filter) = match crate::nc::load_dll(&log_buffers) {
+            Ok((lib, filter)) => {
+                log_info(&log_buffers, "DLL loaded successfully.", false);
+                (lib, filter)
+            },
+            Err(e) => {
+                log_error(&log_buffers, &format!("Failed to load DLL: {}", e), false);
+                return;
+            }
+        };
 
-        while capturing.load(Ordering::SeqCst) {
-            log_process_step(&log_buffers, "Attempting to capture packet...");
-            if let Err(e) = packet_sniffer::capture_packet_data(&log_buffers) {
-                error!("Failed to capture packet: {:?}", e);
-                log_error(&log_buffers, &format!("Failed to capture packet: {:?}", e), false); // Allow repeated log
-                log_process_step(&log_buffers, &format!("Failed to capture packet: {:?}", e));
+        start_packet_capture(&log_buffers, lib.clone(), filter, CAPTURING.clone());
+        log_info(&log_buffers, "Packet capture started in thread.", false);
+
+        loop {
+            ctx.request_repaint();
+            if let Ok(_) = receiver.try_recv() {
                 break;
             }
-
-            if last_packet_count_check.elapsed() >= Duration::from_secs(3) {
-                log_info(&log_buffers, "Calling GET_PACKET_COUNT function...", false); // Allow repeated log
-                log_process_step(&log_buffers, "Calling GET_PACKET_COUNT function...");
-                let count = match packet_sniffer::get_captured_packet_count(&log_buffers) {
-                    Ok(count) => count,
-                    Err(e) => {
-                        error!("Failed to get packet count: {:?}", e);
-                        log_error(&log_buffers, &format!("Failed to get packet count: {:?}", e), false); // Allow repeated log
-                        log_process_step(&log_buffers, &format!("Failed to get packet count: {:?}", e));
-                        break;
-                    }
-                };
-
-                log_info(&log_buffers, &format!("Packet count: {}", count), false); // Allow repeated log
-                log_process_step(&log_buffers, &format!("Packet count: {}", count));
-                last_packet_count_check = Instant::now(); // Reset the timer every time we log the count
-            }
-
-            let mut packets = CAPTURED_PACKETS.lock().expect("Failed to lock captured packets for writing");
-            let count = packet_sniffer::get_captured_packet_count(&log_buffers).unwrap_or(0);
-            for i in 0..count {
-                log_info(&log_buffers, &format!("Getting packet at index {}", i), false); // Allow repeated log
-                log_process_step(&log_buffers, &format!("Getting packet at index {}", i));
-                match packet_sniffer::get_captured_packet(i, &log_buffers) {
-                    Ok(Some(packet)) => {
-                        let packet_data = packet_sniffer::human_readable_packet_data(&packet);
-                        log_info(&log_buffers, &format!("Captured packet:\n{}", &packet_data), false); // Allow repeated log
-                        packets.push(packet_data.clone()); // Clone the string before pushing
-                        info!("Captured packet:\n{}", packet_data);
-                        log_process_step(&log_buffers, &format!("Captured packet:\n{}", packet_data));
-                        SHOW_PACKET_POPUP.store(true, Ordering::SeqCst); // Show the popup once a packet is captured
-                    },
-                    Ok(None) => {
-                        error!("Failed to get packet: pointer is null at index {}", i);
-                        log_error(&log_buffers, &format!("Failed to get packet: pointer is null at index {}", i), false); // Allow repeated log
-                        log_process_step(&log_buffers, &format!("Failed to get packet: pointer is null at index {}", i));
-                    },
-                    Err(e) => {
-                        error!("Failed to access get_packet function: {:?}", e);
-                        log_error(&log_buffers, &format!("Failed to access get_packet function: {:?}", e), false); // Allow repeated log
-                        log_process_step(&log_buffers, &format!("Failed to access get_packet function: {:?}", e));
-                        break;
-                    }
-                }
-            }
-            drop(packets); // Explicitly drop lock to ensure it is released
-
-            ctx.request_repaint(); // Request UI repaint to update packet list
-            log_info(&log_buffers, "Sleeping for 200 ms...", false); // Allow repeated log
-            log_process_step(&log_buffers, "Sleeping for 200 ms...");
-            thread::sleep(Duration::from_millis(200));
+            std::thread::sleep(std::time::Duration::from_millis(100));
+            log_info(&log_buffers, "Packet capture thread running...", false);
         }
 
-        log_info(&log_buffers, "Exiting packet capture thread...", false); // Allow repeated log
-        log_process_step(&log_buffers, "Exiting packet capture thread...");
-        ctx.request_repaint(); // Ensure UI repaint after capture thread ends
+        stop_packet_capture(&log_buffers, CAPTURING.clone());
+        crate::nc::unload_dll(&log_buffers, Some(lib));
+        log_info(&log_buffers, "Packet capture thread terminated.", false);
     });
+}
+
+pub fn get_packet_data(log_buffers: &LogBuffers) -> Vec<String> {
+    // Capture the output of print_packet_data and return as Vec<String>
+    let mut buffer = Vec::new();
+    let mut writer = std::io::Cursor::new(&mut buffer);
+
+    // Redirect stdout temporarily
+    let stdout = std::io::stdout();
+    let mut handle = stdout.lock();
+    std::io::copy(&mut writer, &mut handle).unwrap();
+
+    // Execute function to print packet data
+    print_packet_data(log_buffers);
+
+    // Restore stdout
+    std::io::copy(&mut writer, &mut handle).unwrap();
+
+    // Convert buffer to Vec<String>
+    String::from_utf8(buffer).unwrap().lines().map(|s| s.to_string()).collect()
+}
+
+pub fn get_packet_count(log_buffers: &LogBuffers) -> usize {
+    let mut buffer = Vec::new();
+    let mut writer = std::io::Cursor::new(&mut buffer);
+
+    // Redirect stdout temporarily
+    let stdout = std::io::stdout();
+    let mut handle = stdout.lock();
+    std::io::copy(&mut writer, &mut handle).unwrap();
+
+    // Execute function to count packets
+    count_packets(log_buffers);
+
+    // Restore stdout
+    std::io::copy(&mut writer, &mut handle).unwrap();
+
+    // Convert buffer to usize
+    String::from_utf8(buffer).unwrap().trim().parse::<usize>().unwrap_or(0)
 }
