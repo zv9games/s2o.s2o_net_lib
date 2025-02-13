@@ -1,6 +1,7 @@
 use eframe::egui::{self, Color32, RichText};
 
 // MenuSettings struct definition
+#[derive(Clone)]
 pub struct MenuSettings {
     pub font_size: f32,
     pub title_color: Color32,

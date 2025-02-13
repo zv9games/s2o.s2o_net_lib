@@ -17,6 +17,7 @@ pub fn init_module() -> Result<(), String> {
     }
 }
 
+#[allow(dead_code)]
 pub fn is_admin_user() -> bool {
     unsafe {
         let mut token: winapi::um::winnt::HANDLE = null_mut();

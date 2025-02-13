@@ -38,18 +38,30 @@ impl MenuState {
             runtime.subsec_millis() / 10
         )
     }
+
+    // Method to update selected index
+    pub fn set_selected(&mut self, index: usize) {
+        self.selected = index;
+    }
+
+    // Method to access settings
+    pub fn get_settings(&self) -> &crate::gui_engine_style::MenuSettings {
+        &self.settings
+    }
 }
 
 pub fn render_menu(
     ctx: &Context,
     title: &str,
     menu_items: &[MenuItem],
-    settings: &crate::gui_engine_style::MenuSettings,
-    selected_index: usize,
+    menu_state: &MenuState,
     is_elevated: bool,
     runtime: String,
 ) {
     logging::debug_info("Rendering menu");
+    let settings = &menu_state.settings;
+    let selected_index = menu_state.selected;
+
     CentralPanel::default()
         .frame(egui::Frame::none()) // Make the menu panel transparent
         .show(ctx, |ui| {
@@ -89,13 +101,10 @@ pub fn render_menu(
     logging::debug_info("Menu rendered successfully");
 }
 
-
-
 pub fn render_app_state(
     ctx: &Context,
     app_state: &AppState,
-    menu_settings: &crate::gui_engine_style::MenuSettings,
-    selected_index: usize,
+    menu_state: &MenuState,
     is_elevated: bool,
     runtime: String,
     set_app_state: impl Fn(AppState) + 'static + Clone,
@@ -107,9 +116,8 @@ pub fn render_app_state(
             render_menu(
                 ctx,
                 "Security Menu",
-                &crate::s_menu::menu_items(set_app_state.clone()),
-                menu_settings,
-                selected_index,
+                &crate::s_menu::menu_items(set_app_state.clone(), &menu_state.get_settings()),
+                menu_state,
                 is_elevated,
                 runtime,
             );
@@ -118,9 +126,8 @@ pub fn render_app_state(
             render_menu(
                 ctx,
                 "P Menu",
-                &crate::p_menu::menu_items(set_app_state.clone()),
-                menu_settings,
-                selected_index,
+                &crate::p_menu::menu_items(set_app_state.clone(), &menu_state.get_settings()),
+                menu_state,
                 is_elevated,
                 runtime,
             );

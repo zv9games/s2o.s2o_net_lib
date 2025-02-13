@@ -13,6 +13,7 @@ pub fn init_module() -> Result<(), String> {
 }
 
 // Placeholder menu items for ds_menu
+#[allow(dead_code)]
 pub fn menu_items() -> Vec<crate::gui_engine_menu::MenuItem> {
     vec![
         crate::gui_engine_menu::MenuItem {

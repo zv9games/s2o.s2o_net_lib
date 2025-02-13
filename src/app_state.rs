@@ -21,5 +21,6 @@ pub enum AppState {
     DSMenu,
 }
 
+#[allow(dead_code)]
 pub trait SetAppState: Fn(AppState) {}
 impl<T> SetAppState for T where T: Fn(AppState) {}

@@ -1,4 +1,4 @@
-// Import necessary modules
+ 
 mod logging;
 mod initialization;
 mod app_state;
@@ -20,13 +20,15 @@ mod ds_menu;
 //use std::sync::Mutex;
 
 fn main() {
+    // Add a pause and wait for any key to be pressed
+    
     // Call the s2o_bootup function
     if let Err(e) = initialization::s2o_bootup() {
         logging::debug_error(&format!("Failed to boot application: {}", e));
         std::process::exit(1);
     }
-}
+
     // Example usage of logging
     //logging::debug_info("Application has started.");
     //logging::debug_error("No errors encountered.");
-
+}

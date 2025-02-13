@@ -1,8 +1,8 @@
 use crate::admin_check;
-use crate::initialization;
 use crate::logging;
 use crate::app_state;
 use crate::gui_engine;
+use crate::gui_engine_animation;
 use crate::s_menu;
 use crate::p_menu;
 use crate::pc_menu;
@@ -10,22 +10,12 @@ use crate::ds_menu;
 use crate::ns_menu;
 
 
-pub fn init_module() -> Result<(), String> {
-    // Placeholder for actual initialization logic
-    let initialization_passed = true;
-
-    if initialization_passed {
-        logging::debug_info("initialization module is online");
-        Ok(())
-    } else {
-        Err("initialization module initialization failed".to_string())
-    }
-}
 
 pub fn s2o_bootup() -> Result<(), String> {
     // Print a message to indicate the initialization process has started
     logging::debug_info("Initialization is being called");
 
+    
     // Step 1: Check modules
     check_modules()?;
 
@@ -44,27 +34,22 @@ pub fn s2o_bootup() -> Result<(), String> {
         return Err(format!("Component initialization failed: {}", e));
     }
 
-    // Add any other initialization logic here
-    // For example, establish database connections, prepare caches, etc.
-
-    // Print a message to indicate the initialization process is complete
     logging::debug_info("Initialization complete");
-	gui_engine::start_gui();
+    gui_engine::start_gui();
 
     Ok(())
 }
 
 fn check_modules() -> Result<(), String> {
-    
     if let Err(e) = logging::init_module() {
         logging::debug_info("Failed to initialize logging module...");
         return Err(format!("Failed to initialize logging module: {}", e));
     }
 
-    initialization::init_module()?;
-	admin_check::init_module()?;
+    admin_check::init_module()?;
     app_state::init_module()?;
     gui_engine::init_module()?;
+	gui_engine_animation::init_module()?;
     s_menu::init_module()?;
     p_menu::init_module()?;
     pc_menu::init_module()?;
@@ -85,6 +70,12 @@ fn check_modules() -> Result<(), String> {
 
 fn setup_configurations() -> Result<(), String> {
     // Add your configuration setup logic here
+	
+	// Load fonts
+    gui_engine::load_fonts()?;
+    logging::debug_info("Fonts setup complete.");
+
+    
     logging::debug_info("Check 1");
     // Simulate configuration setup
     Ok(())

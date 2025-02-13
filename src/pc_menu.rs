@@ -1,6 +1,5 @@
 use crate::logging;
-use crate::gui_engine;
-use crate::gui_engine_menu::MenuItem;
+//use crate::gui_engine_menu::MenuItem;
 
 
 pub fn init_module() -> Result<(), String> {
@@ -16,6 +15,7 @@ pub fn init_module() -> Result<(), String> {
 }
 
 // Placeholder menu items for pc_menu
+#[allow(dead_code)]
 pub fn menu_items() -> Vec<crate::gui_engine_menu::MenuItem> {
     vec![
         crate::gui_engine_menu::MenuItem {

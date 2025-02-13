@@ -1,5 +1,5 @@
 use crate::logging;
-use eframe::egui::{self, Context, Painter, Rect, Rgba, Pos2};
+use eframe::egui::{self, Painter, Rect, Rgba, Pos2};
 use rand::Rng;
 use rand::prelude::SliceRandom; // Import the SliceRandom trait
 
@@ -26,8 +26,12 @@ pub struct CodeChar {
     color: Rgba,
 }
 
+use std::time::Instant;
+
 pub struct AnimationState {
     code_chars: Vec<CodeChar>,
+    speed_factor: f32,
+    last_update: Instant,
 }
 
 impl AnimationState {
@@ -48,13 +52,21 @@ impl AnimationState {
 
         logging::debug_info("AnimationState initialized with characters");
 
-        Self { code_chars }
+        Self { 
+            code_chars, 
+            speed_factor: 1.0,
+            last_update: Instant::now(),
+        }
     }
 
     pub fn update(&mut self) {
+        let now = Instant::now();
+        let delta_time = now.duration_since(self.last_update).as_secs_f32();
+        self.last_update = now;
+
         let mut rng = rand::thread_rng();
         for code_char in &mut self.code_chars {
-            code_char.y += code_char.speed;
+            code_char.y += code_char.speed * self.speed_factor * delta_time;
             if code_char.y > 1.0 {
                 code_char.y = 0.0;
                 code_char.character = *KANJI_CHARACTERS.choose(&mut rng).unwrap();
@@ -74,21 +86,32 @@ impl AnimationState {
                 Pos2::new(rect.left() + x, y),
                 egui::Align2::CENTER_TOP,
                 code_char.character,
-                egui::FontId::proportional(24.0),
+                egui::FontId::proportional(24.0), // Use FontId::proportional directly
                 code_char.color.into(),
             );
-            logging::debug_info(&format!("Drew character {} at ({}, {})", code_char.character, x, y));
+            // logging::debug_info(&format!("Drew character {} at ({}, {})", code_char.character, x, y));
         }
-        logging::debug_info("Background drawn");
+        // logging::debug_info("Background drawn");
     }
+
+    pub fn set_speed_factor(&mut self, speed_factor: f32) {
+        self.speed_factor = speed_factor;
+        logging::debug_info(&format!("Speed factor set to: {}", self.speed_factor));
+    }
+}
+
+pub fn speedometer(speed: u8) -> f32 {
+    // Convert the speed to a factor (e.g., 01-99 maps to 0.01-0.99)
+    let factor = speed as f32 / 100.0;
+    factor
 }
 
 pub fn init_module() -> Result<(), String> {
     let initialization_passed = true;
     if initialization_passed {
-        logging::debug_info("animation module is online");
+        logging::debug_info("gui_engine_animation module is online");
         Ok(())
     } else {
-        Err("animation module initialization failed".to_string())
+        Err("gui_engine_animation module initialization failed".to_string())
     }
 }

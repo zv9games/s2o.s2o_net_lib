@@ -1,4 +1,4 @@
-use log::{debug, info, error};
+use log::{info, error};
 use simplelog::{Config, LevelFilter, TermLogger, TerminalMode, ColorChoice};
 use once_cell::sync::Lazy;
 use std::collections::HashSet;
